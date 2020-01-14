@@ -20,20 +20,5 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     }
     const db = client.db(databaseName)
 
-    // db.collection('users').deleteMany({
-    //     age: 26
-    // }).then((result) => {
-    //     console.log(result)
-    // }).catch((error) => {
-    //     console.log(eoor)
-    // })
-
-    db.collection('tasks').deleteOne({
-        description: "TEST1"
-    }).then((result) => {
-        console.log(result)
-    }).catch((error) => {
-        console.log(eoor)
-    })
 
 })
