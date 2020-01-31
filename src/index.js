@@ -24,12 +24,3 @@ app.listen(port, () => {
     console.log("Sever is up at " + port)
 });
 
-const pet = {
-    name: "Hal"
-}
-
-pet.toJSON = function () {
-    console.log(this)
-    return {}
-}
-console.log(JSON.stringify(pet));
