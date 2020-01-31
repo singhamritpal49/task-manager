@@ -10,19 +10,6 @@ const taskRouter = require('../src/routers/task');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// app.use((req,res,next) => {
-//     if(req.method === 'GET') {
-//         res.send("GET Requests Are Disabled")
-//     } else {
-//         next()
-//     }
-// });
-
-// app.use((req,res) => {
-//         res.status(503).send("Under Maintenance ")
-// });
-
-
 
 
 app.use(express.json());
@@ -36,3 +23,13 @@ const jwt = require('jsonwebtoken');
 app.listen(port, () => {
     console.log("Sever is up at " + port)
 });
+
+const pet = {
+    name: "Hal"
+}
+
+pet.toJSON = function () {
+    console.log(this)
+    return {}
+}
+console.log(JSON.stringify(pet));
