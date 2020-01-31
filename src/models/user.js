@@ -50,6 +50,18 @@ const userSchema = new moongoose.Schema({
     }]
 });
 
+// This method is for only exposing the email, name, and token. 
+/// Removes tokens array and hashed password
+userSchema.methods.getPublicProfile = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
 userSchema.methods.generateAuthToken = async function( ) {
     const user = this;
     const token = jwt.sign({_id: user.id.toString()}, "thisismyfirstNodebackend" );
@@ -59,6 +71,8 @@ userSchema.methods.generateAuthToken = async function( ) {
     await user.save();
     return token
 };
+
+
 
 userSchema.statics.findByCredentials = async (email, password) => {
 
