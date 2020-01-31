@@ -1,7 +1,7 @@
-const moongoose = require('mongoose')
-const validator = require('validator')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const moongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new moongoose.Schema({
     name: {
@@ -42,20 +42,23 @@ const userSchema = new moongoose.Schema({
         }
     },
     tokens: [{
+        // TO KEEP TRACK OF ALL PLACES WHERE THE USER IS LOGGED IN
         token: {
             type: String,
             required: true
         }
     }]
-})
+});
 
 userSchema.methods.generateAuthToken = async function( ) {
-    const user = this
-    const token = jwt.sign({_id: user.id.toString()}, "thisismyfirstNodebackend" )
-    user.tokens = user.tokens.concat({ token })
-    await user.save()
+    const user = this;
+    const token = jwt.sign({_id: user.id.toString()}, "thisismyfirstNodebackend" );
+
+    user.tokens = user.tokens.concat({ token });
+
+    await user.save();
     return token
-}
+};
 
 userSchema.statics.findByCredentials = async (email, password) => {
 
@@ -73,7 +76,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
 // Hash the plain text password before saving 
 userSchema.pre('save', async function (next) {
-    const user = this
+    const user = this;
 
 
     if (user.isModified('password')) {
