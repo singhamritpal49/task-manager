@@ -49,6 +49,8 @@ const userSchema = new moongoose.Schema({
             required: true
         }
     }]
+},{
+    timestamps: true
 });
 
 userSchema.virtual('tasks', {
