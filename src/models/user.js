@@ -50,6 +50,12 @@ const userSchema = new moongoose.Schema({
     }]
 });
 
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
 // This method is for only exposing the email, name, and token. 
 /// Removes tokens array and hashed password
 userSchema.methods.toJSON = function () {

@@ -10,6 +10,11 @@ const Task = moongoose.model('Task', {
     completed: {
         type: Boolean,
         default: false
+    },
+    owner: {
+        type: moongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 })
 

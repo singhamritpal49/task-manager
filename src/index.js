@@ -24,3 +24,13 @@ app.listen(port, () => {
     console.log("Sever is up at " + port)
 });
 
+
+// const main = async () => {
+
+//     const user = await User.findById('5e34a9aa91b6208c6915d0ac')
+//     await user.populate('tasks').execPopulate()
+//     console.log(user.tasks);
+    
+
+// }
+// main()
