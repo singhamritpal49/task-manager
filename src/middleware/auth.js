@@ -3,17 +3,17 @@ const User = require('../models/user')
 
 
 
-const auth = async (req,res,next) => {
+const auth = async (req, res, next) => {
     try {
         // Middleware First starts by looking at the header that user provides
-        const token = req.header('Authorization').replace('Bearer ','');
+        const token = req.header('Authorization').replace('Bearer ', '');
         // then it verifies it by decoding
         const decoded = jwt.verify(token, "thisismyfirstNodebackend");
         // we use User.findOne to lookup user
-        const user = await User.findOne({ _id: decoded._id, 'tokens.token': token});
+        const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
 
         // If the user is not found throw error
-        if(!user) {
+        if (!user) {
             throw new Error()
         }
         // This is for logout feature
@@ -24,7 +24,7 @@ const auth = async (req,res,next) => {
         next()
     } catch (e) {
         // If they are not Authenticator
-        res.status(401).send({error: "Please Authenticate"})
+        res.status(401).send({ error: "Please Authenticate" })
     }
 };
 module.exports = auth;

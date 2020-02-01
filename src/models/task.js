@@ -21,6 +21,6 @@ const taskSchema = new moongoose.Schema({
     timestamps: true
 })
 
-const Task = moongoose.model('Task', taskSchema )
+const Task = moongoose.model('Task', taskSchema)
 
 module.exports = Task
