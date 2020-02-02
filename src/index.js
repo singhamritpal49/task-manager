@@ -16,17 +16,20 @@ const upload = multer({
     limits: {
         fileSize: 1000000
     },
-    fileFilter(req,file,cb){
-        if(!file.originalname.match(/\.(doc|docx)$/)) {
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(doc|docx)$/)) {
             return cb(new Error('Please upload a Word Document'))
         }
-        cb(undefined,true)
+        cb(undefined, true)
 
     }
 })
 
-app.post('/upload',upload.single('upload'), (req,res)=> {
+
+app.post('/upload', upload.single('upload'), (req, res) => {
     res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
 })
 
 
