@@ -18,7 +18,7 @@ const userSchema = new moongoose.Schema({
                 throw new Error("Age Must be Greater than 0")
             }
         }
-    },  
+    },
     email: {
         type: String,
         required: true,
@@ -48,8 +48,11 @@ const userSchema = new moongoose.Schema({
             type: String,
             required: true
         }
-    }]
-},{
+    }],
+    avatar: {
+        type: Buffer
+    }
+}, {
     timestamps: true
 });
 
@@ -71,9 +74,9 @@ userSchema.methods.toJSON = function () {
     return userObject
 }
 
-userSchema.methods.generateAuthToken = async function( ) {
+userSchema.methods.generateAuthToken = async function () {
     const user = this;
-    const token = jwt.sign({_id: user.id.toString()}, "thisismyfirstNodebackend" );
+    const token = jwt.sign({ _id: user.id.toString() }, "thisismyfirstNodebackend");
 
     user.tokens = user.tokens.concat({ token });
 
@@ -85,12 +88,12 @@ userSchema.methods.generateAuthToken = async function( ) {
 
 userSchema.statics.findByCredentials = async (email, password) => {
 
-    const user = await User.findOne({email: email})
-    if(!user) {
+    const user = await User.findOne({ email: email })
+    if (!user) {
         throw new Error("Unable to Login")
     }
-    const isMatch = await bcrypt.compare( password,user.password )
-    if(!isMatch) {
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
         throw new Error("Unable to Login")
     }
     return user
@@ -112,7 +115,7 @@ userSchema.pre('save', async function (next) {
 // Delete user task when user is removed
 userSchema.pre('remove', async function (next) {
     const user = this
-    await Task.deleteMany({ owner: user._id})
+    await Task.deleteMany({ owner: user._id })
     next()
 })
 
