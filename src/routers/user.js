@@ -75,7 +75,6 @@ router.patch('/users/me', auth, async (req, res) => {
         res.send(req.user)
     } catch (error) {
         res.status(400).send(error)
-
     }
 })
 
