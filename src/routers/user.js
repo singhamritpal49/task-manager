@@ -90,12 +90,23 @@ router.delete('/users/me', auth, async (req, res) => {
     }
 })
 const upload = multer({
-    dest: 'avatar'
+    dest: 'avatar',
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req,file,cb) {
+        if(!file.originalname.match(/\.(png|jpg|jpeg)$/)) { 
+            return cb(new Error("Please Upload a Image Format"))
+        }
+        cb(undefined,true)
+    }
 })
 
 router.post('/users/me/avatar', upload.single('avatar'), (req,res) => {
     res.send()
 })
+
+
 
 
 
