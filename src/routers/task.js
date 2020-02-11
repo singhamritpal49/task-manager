@@ -32,10 +32,7 @@ router.patch('/tasks/:id', auth, async (req, res) => {
 
     try {
         const task = await Task.findOne({ _id: req.params.id, owner: req.user._id })
-        // const task = await Task.findById(req.params.id)
-
-
-        // const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+ 
         if (!task) {
             return res.status(404).send()
         }
@@ -59,7 +56,19 @@ router.get('/tasks/:id', auth, async (req, res) => {
     try {
 
         // const task = await Task.findById(_id)
-        const task = await Task.findOne({ _id, owner: req.user._id })
+        Task.findOne({ _id, owner: req.user._id }, ( err, data ) => {
+            User.findOne({ _id: req.user._id}, (err, data) => {
+                if( data.totalTaskCount > 10 ) {
+                    User.find({ totalTaskCount: { "$lt": 10 }}, (err, data) => {
+                        // loop through taksk assgin to 
+                    })
+                } else {
+                    User.find({ totalTaskCount: { "$lt": 5 }}, (err, data) => {
+                        // loop through taksk assgin to 
+                    })
+                }
+            })
+        })
         if (!task) {
             return res.status(404).send()
         }
